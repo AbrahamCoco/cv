@@ -1,6 +1,104 @@
-body {
-  background: #fff;
-  color: #212529;
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #0d1117;
+  --color-panel: #12181f;
+  --color-line: #22293233;
+  --color-border: #2a3038;
+  --color-ink: #c9d1d9;
+  --color-mute: #7d8590;
+  --color-blue: #58a6ff;
+  --color-green: #7ee787;
+  --color-purple: #d2a8ff;
+  --color-orange: #ffa657;
+  --color-pink: #ff7b9c;
+
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", monospace;
+  --font-sans: var(--font-inter), Inter, sans-serif;
 }
 
-.linea-gruesa { border-top: 2px solid #000; }
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background-color: var(--color-bg, #0d1117);
+}
+
+.caret::after {
+  content: '▍';
+  color: #7ee787;
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+.commit-line {
+  position: relative;
+}
+
+.commit-line::before {
+  content: '';
+  position: absolute;
+  left: -1.55rem;
+  top: 0.35rem;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #58a6ff;
+  box-shadow: 0 0 0 3px #0d1117;
+}
+
+.commit-rail {
+  position: relative;
+}
+
+.commit-rail::before {
+  content: '';
+  position: absolute;
+  left: -1.3rem;
+  top: 0.4rem;
+  bottom: -1.5rem;
+  width: 1px;
+  background: #2a3038;
+}
+
+.commit-rail:last-child::before {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret::after {
+    animation: none;
+  }
+}
+
+/* Agregar al final de tu globals.css existente */
+
+@media print {
+  @page {
+    margin: 1.5cm;
+  }
+
+  a[href^="http"]::after,
+  a[href^="mailto"]::after,
+  a[href^="tel"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.4em;
+    color: #555;
+  }
+
+  /* Evita que las secciones se corten a la mitad de una hoja */
+  .break-inside-avoid {
+    break-inside: avoid;
+  }
+}
