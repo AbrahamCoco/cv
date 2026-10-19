@@ -3,7 +3,7 @@
 @theme {
   --color-bg: #0d1117;
   --color-panel: #12181f;
-  --color-line: #22293233;
+  --color-line: rgb(34 41 50 / 0.2);
   --color-border: #2a3038;
   --color-ink: #c9d1d9;
   --color-mute: #7d8590;
@@ -27,12 +27,12 @@ html {
 }
 
 body {
-  background-color: var(--color-bg, #0d1117);
+  background-color: var(--color-bg);
 }
 
 .caret::after {
-  content: '▍';
-  color: #7ee787;
+  content: "▍";
+  color: var(--color-green);
   animation: blink 1s step-start infinite;
 }
 
@@ -47,15 +47,15 @@ body {
 }
 
 .commit-line::before {
-  content: '';
+  content: "";
   position: absolute;
   left: -1.55rem;
   top: 0.35rem;
   width: 9px;
   height: 9px;
   border-radius: 999px;
-  background: #58a6ff;
-  box-shadow: 0 0 0 3px #0d1117;
+  background: var(--color-blue);
+  box-shadow: 0 0 0 3px var(--color-bg);
 }
 
 .commit-rail {
@@ -63,13 +63,13 @@ body {
 }
 
 .commit-rail::before {
-  content: '';
+  content: "";
   position: absolute;
   left: -1.3rem;
   top: 0.4rem;
   bottom: -1.5rem;
   width: 1px;
-  background: #2a3038;
+  background: var(--color-border);
 }
 
 .commit-rail:last-child::before {
@@ -80,25 +80,16 @@ body {
   .caret::after {
     animation: none;
   }
+
+  html {
+    scroll-behavior: auto;
+  }
 }
 
-/* Agregar al final de tu globals.css existente */
-
+/* Keep the plain-CV home page printable: no dark chrome, no interactive-only links */
 @media print {
-  @page {
-    margin: 1.5cm;
-  }
-
-  a[href^="http"]::after,
-  a[href^="mailto"]::after,
-  a[href^="tel"]::after {
-    content: " (" attr(href) ")";
-    font-size: 0.4em;
-    color: #555;
-  }
-
-  /* Evita que las secciones se corten a la mitad de una hoja */
-  .break-inside-avoid {
-    break-inside: avoid;
+  a {
+    color: inherit;
+    text-decoration: underline;
   }
 }
